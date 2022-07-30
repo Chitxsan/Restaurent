@@ -24,3 +24,12 @@ Route::get("/home",[HomeController::class,"index"]);
 Route::get("/post/{id}/{posttitle}",function($id,$title){
     return "This is restaurent id NO " . $id . "this post title is " . $title;
 });
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
